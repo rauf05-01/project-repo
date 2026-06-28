@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadMyProjects();
 });
 
-// Load My Projects with Download Links
+
 async function loadMyProjects() {
   try {
     const data = await apiRequest('/projects/my/list');
@@ -103,19 +103,19 @@ async function loadMyProjects() {
         container.innerHTML = data.map(p => `
           <div class="p-4 bg-gray-50 rounded-2xl border">
             <h4 class="font-medium">${p.title}</h4>
-            <p class="text-sm text-gray-500">Status: <span class="capitalize font-medium">${p.status}</span></p>
+            <p class="text-sm text-gray-500">Status: <span class="capitalize">${p.status}</span></p>
             
             ${p.file_path ? `
-              <a href="http://localhost:5000${p.file_path}" 
+              <a href="${window.location.origin}${p.file_path}" 
                  target="_blank"
-                 class="inline-flex items-center gap-2 mt-3 text-blue-600 hover:text-blue-700 hover:underline">
+                 class="inline-flex items-center gap-2 mt-3 text-blue-600 hover:underline">
                 📄 Download PDF
               </a>
-            ` : '<p class="text-red-500 text-sm">File not available</p>'}
+            ` : ''}
           </div>
         `).join('');
       } else {
-        container.innerHTML = '<p class="text-gray-500">No projects uploaded yet.</p>';
+        container.innerHTML = '<p class="text-gray-500">No projects yet.</p>';
       }
     }
   } catch (err) {
@@ -184,6 +184,32 @@ async function updateProjectStatus(projectId, status) {
     }
   } catch (err) {
     console.error(err);
+  }
+}
+
+// Update Project Status (for Lecturers)
+async function updateProjectStatus(projectId, status) {
+  if (!confirm(`Mark this project as ${status}?`)) return;
+
+  try {
+    const res = await fetch(`${API_BASE}/projects/${projectId}/status`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      },
+      body: JSON.stringify({ status })
+    });
+
+    if (res.ok) {
+      alert(`Project marked as ${status}!`);
+      loadAssignedProjects();
+    } else {
+      alert('Failed to update status');
+    }
+  } catch (err) {
+    console.error(err);
+    alert('Error updating status');
   }
 }
 
