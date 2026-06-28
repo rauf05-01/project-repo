@@ -26,7 +26,7 @@ const API_BASE = (window.location.hostname === 'localhost' ||
                  ? 'http://localhost:5000/api' 
                  : '/api';
 
-// Load Lecturers for Dropdown
+// ==================== LOAD LECTURERS FOR DROPDOWN ====================
 async function loadLecturers() {
   const select = document.getElementById('lecturerId');
   if (!select) return;
@@ -90,7 +90,7 @@ document.getElementById('uploadForm')?.addEventListener('submit', async (e) => {
   }
 });
 
-// Load My Projects
+// ==================== LOAD MY PROJECTS ====================
 async function loadMyProjects() {
   try {
     const data = await apiRequest('/projects/my/list');
@@ -114,6 +114,11 @@ document.addEventListener('DOMContentLoaded', () => {
   loadMyProjects();
 });
 
+// Auto Load
+document.addEventListener('DOMContentLoaded', () => {
+  loadLecturers();
+  loadMyProjects();
+});
 
 // Load My Projects with Download Links
 async function loadMyProjects() {
