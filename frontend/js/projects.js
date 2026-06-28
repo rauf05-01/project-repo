@@ -92,7 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
   loadMyProjects();
 });
 
-
 async function loadMyProjects() {
   try {
     const data = await apiRequest('/projects/my/list');
@@ -101,17 +100,17 @@ async function loadMyProjects() {
     if (container) {
       if (data && data.length > 0) {
         container.innerHTML = data.map(p => `
-          <div class="p-4 bg-gray-50 rounded-2xl border">
+          <div class="p-4 bg-gray-50 rounded-2xl border border-gray-200">
             <h4 class="font-medium">${p.title}</h4>
-            <p class="text-sm text-gray-500">Status: <span class="capitalize">${p.status}</span></p>
+            <p class="text-sm text-gray-500 mt-1">Status: <span class="capitalize font-medium">${p.status}</span></p>
             
             ${p.file_path ? `
               <a href="${window.location.origin}${p.file_path}" 
-                 target="_blank"
-                 class="inline-flex items-center gap-2 mt-3 text-blue-600 hover:underline">
+                 target="_blank" 
+                 class="inline-flex items-center gap-2 mt-3 px-4 py-2 bg-blue-100 text-blue-700 rounded-xl hover:bg-blue-200">
                 📄 Download PDF
               </a>
-            ` : ''}
+            ` : '<p class="text-red-500 text-sm">File not available</p>'}
           </div>
         `).join('');
       } else {
