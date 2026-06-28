@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config = { content: ["./**/*.{html,js}"] };</script>
+</head>
+<body class="bg-gray-50">
+  <nav class="bg-white shadow p-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Admin Dashboard</h1>
+      <button onclick="logout()" class="text-red-600 hover:underline">Logout</button>
+    </div>
+  </nav>
+  <div class="max-w-7xl mx-auto px-6 py-8">
+    <div id="stats" class="grid grid-cols-3 gap-6 mb-12"></div>
+    <h2 class="text-2xl font-semibold mb-6">All Users</h2>
+    <div id="usersList" class="bg-white rounded-2xl shadow"></div>
+  </div>
+  <script src="js/utils.js"></script>
+  <script src="js/projects.js"></script>
+</body>
+</html>
