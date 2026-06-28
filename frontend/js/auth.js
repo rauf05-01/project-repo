@@ -1,4 +1,7 @@
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = (window.location.hostname === 'localhost' || 
+                  window.location.hostname === '127.0.0.1') 
+                 ? 'http://localhost:5000/api' 
+                 : '/api';
 
 document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -11,7 +14,9 @@ document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password })
     });
+
     const data = await res.json();
+
     if (res.ok) {
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
@@ -20,7 +25,8 @@ document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
       alert(data.message || 'Login failed');
     }
   } catch (err) {
-    alert('Network error');
+    console.error(err);
+    alert('Network error. Is the backend running?');
   }
 });
 
@@ -37,6 +43,7 @@ document.getElementById('registerForm')?.addEventListener('submit', async (e) =>
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, email, password, role })
     });
+
     const data = await res.json();
     if (res.ok) {
       alert('Registration successful! Please login.');

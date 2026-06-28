@@ -1,8 +1,8 @@
-// Dynamic API Base URL
-const API_BASE = window.location.hostname === 'localhost' || 
-                 window.location.hostname === '127.0.0.1' 
+// Dynamic API Base for Development & Production
+const API_BASE = (window.location.hostname === 'localhost' || 
+                  window.location.hostname === '127.0.0.1') 
                  ? 'http://localhost:5000/api' 
-                 : '/api';   // For production (same domain)
+                 : '/api';
 
 function getToken() {
   return localStorage.getItem('token');
@@ -17,7 +17,7 @@ async function apiRequest(endpoint, options = {}) {
   const config = {
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
+      ...(token && { 'Authorization': `Bearer ${token}` })
     },
     ...options
   };
@@ -30,9 +30,9 @@ async function apiRequest(endpoint, options = {}) {
       window.location.href = 'login.html';
       return null;
     }
-    return res.json();
+    return await res.json();
   } catch (err) {
-    console.error('API Request Error:', err);
+    console.error('API Error:', err);
     throw err;
   }
 }
