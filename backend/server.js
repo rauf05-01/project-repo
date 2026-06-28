@@ -11,6 +11,9 @@ const adminRoutes = require('./routes/admin');
 const app = express();
 
 app.use(cors());
+app.get('/', (req, res) => {
+  res.send('Student Project Repository API is running! 🚀');
+});
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
