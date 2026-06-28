@@ -20,6 +20,12 @@ async function loadLecturers() {
   }
 }
 
+// Dynamic API Base
+const API_BASE = (window.location.hostname === 'localhost' || 
+                  window.location.hostname === '127.0.0.1') 
+                 ? 'http://localhost:5000/api' 
+                 : '/api';
+
 // Upload Project
 document.getElementById('uploadForm')?.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -41,7 +47,7 @@ document.getElementById('uploadForm')?.addEventListener('submit', async (e) => {
 
   try {
     const token = localStorage.getItem('token');
-    const res = await fetch('http://localhost:5000/api/projects/upload', {
+    const res = await fetch(`${API_BASE}/projects/upload`, {
       method: 'POST',
       headers: { 'Authorization': `Bearer ${token}` },
       body: formData
@@ -49,15 +55,15 @@ document.getElementById('uploadForm')?.addEventListener('submit', async (e) => {
 
     const data = await res.json();
     if (res.ok) {
-      alert('✅ Project uploaded and assigned to lecturer!');
+      alert('✅ Project uploaded successfully!');
       document.getElementById('uploadForm').reset();
       loadMyProjects();
     } else {
-      alert('❌ ' + (data.message || 'Failed'));
+      alert('❌ ' + (data.message || 'Upload failed'));
     }
   } catch (err) {
     console.error(err);
-    alert('Upload failed');
+    alert('❌ Upload failed. Check if backend is running.');
   }
 });
 
