@@ -22,15 +22,22 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
   const { email, password } = req.body;
+  
   try {
+    console.log('Login attempt for:', email);  // Debug log
+
     const result = await db.query('SELECT * FROM users WHERE email = $1', [email]);
+    
     if (result.rows.length === 0) {
+      console.log('User not found');
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
     const user = result.rows[0];
     const isMatch = await bcrypt.compare(password, user.password);
+    
     if (!isMatch) {
+      console.log('Password mismatch');
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
@@ -40,12 +47,14 @@ exports.login = async (req, res) => {
       { expiresIn: '24h' }
     );
 
+    console.log('Login successful for:', user.email);
     res.json({
       token,
       user: { id: user.id, name: user.name, email: user.email, role: user.role }
     });
   } catch (err) {
-    res.status(500).json({ message: 'Server error' });
+    console.error('Login Error:', err);
+    res.status(500).json({ message: 'Server error during login' });
   }
 };
 
