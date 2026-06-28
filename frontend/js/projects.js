@@ -20,13 +20,35 @@ async function loadLecturers() {
   }
 }
 
-// Dynamic API Base
+// Dynamic API Base (works on localhost and production)
 const API_BASE = (window.location.hostname === 'localhost' || 
                   window.location.hostname === '127.0.0.1') 
                  ? 'http://localhost:5000/api' 
                  : '/api';
 
-// Upload Project
+// Load Lecturers for Dropdown
+async function loadLecturers() {
+  const select = document.getElementById('lecturerId');
+  if (!select) return;
+
+  try {
+    const data = await apiRequest('/projects/lecturers');
+    select.innerHTML = '<option value="">Select a Lecturer</option>';
+
+    if (data && data.length > 0) {
+      data.forEach(l => {
+        select.innerHTML += `<option value="${l.id}">${l.name}</option>`;
+      });
+    } else {
+      select.innerHTML = '<option value="">No lecturers available</option>';
+    }
+  } catch (err) {
+    console.error(err);
+    select.innerHTML = '<option value="">Error loading lecturers</option>';
+  }
+}
+
+// ==================== UPLOAD PROJECT WITH LECTURER ====================
 document.getElementById('uploadForm')?.addEventListener('submit', async (e) => {
   e.preventDefault();
 
@@ -35,9 +57,9 @@ document.getElementById('uploadForm')?.addEventListener('submit', async (e) => {
   const lecturerId = document.getElementById('lecturerId').value;
   const file = document.getElementById('projectFile').files[0];
 
-  if (!title) return alert("Title is required");
-  if (!lecturerId) return alert("Please select a lecturer");
-  if (!file) return alert("Please select a PDF file");
+  if (!title) return alert("❌ Project title is required");
+  if (!lecturerId) return alert("❌ Please select a lecturer");
+  if (!file) return alert("❌ Please select a PDF file");
 
   const formData = new FormData();
   formData.append('title', title);
@@ -54,8 +76,9 @@ document.getElementById('uploadForm')?.addEventListener('submit', async (e) => {
     });
 
     const data = await res.json();
+
     if (res.ok) {
-      alert('✅ Project uploaded successfully!');
+      alert('✅ Project uploaded and assigned to lecturer successfully!');
       document.getElementById('uploadForm').reset();
       loadMyProjects();
     } else {
@@ -63,9 +86,34 @@ document.getElementById('uploadForm')?.addEventListener('submit', async (e) => {
     }
   } catch (err) {
     console.error(err);
-    alert('❌ Upload failed. Check if backend is running.');
+    alert('❌ Upload failed. Make sure backend is running.');
   }
 });
+
+// Load My Projects
+async function loadMyProjects() {
+  try {
+    const data = await apiRequest('/projects/my/list');
+    const container = document.getElementById('myProjectsList');
+    if (container) {
+      container.innerHTML = data?.length ? data.map(p => `
+        <div class="p-4 bg-gray-50 rounded-2xl border">
+          <h4 class="font-medium">${p.title}</h4>
+          <p class="text-sm text-gray-500">Status: <span class="capitalize">${p.status}</span></p>
+        </div>
+      `).join('') : '<p class="text-gray-500">No projects yet.</p>';
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+// Auto Load
+document.addEventListener('DOMContentLoaded', () => {
+  loadLecturers();
+  loadMyProjects();
+});
+
 
 // Load My Projects with Download Links
 async function loadMyProjects() {
