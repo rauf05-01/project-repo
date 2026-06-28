@@ -1,9 +1,3 @@
-// Dynamic API Base (works on localhost and production)
-const API_BASE = (window.location.hostname === 'localhost' || 
-                  window.location.hostname === '127.0.0.1') 
-                 ? 'http://localhost:5000/api' 
-                 : '/api';
-
 // ==================== LOAD LECTURERS FOR DROPDOWN ====================
 async function loadLecturers() {
   const select = document.getElementById('lecturerId');
