@@ -1,25 +1,3 @@
-// Load Lecturers for Dropdown
-async function loadLecturers() {
-  const select = document.getElementById('lecturerId');
-  if (!select) return;
-
-  try {
-    const data = await apiRequest('/projects/lecturers');
-    select.innerHTML = '<option value="">Select a Lecturer</option>';
-
-    if (data && data.length > 0) {
-      data.forEach(l => {
-        select.innerHTML += `<option value="${l.id}">${l.name}</option>`;
-      });
-    } else {
-      select.innerHTML = '<option value="">No lecturers registered yet</option>';
-    }
-  } catch (err) {
-    console.error(err);
-    select.innerHTML = '<option value="">Error loading lecturers</option>';
-  }
-}
-
 // Dynamic API Base (works on localhost and production)
 const API_BASE = (window.location.hostname === 'localhost' || 
                   window.location.hostname === '127.0.0.1') 
