@@ -104,15 +104,13 @@ async function loadMyProjects() {
             <h4 class="font-medium">${p.title}</h4>
             <p class="text-sm text-gray-500">Status: <span class="capitalize">${p.status}</span></p>
             
-            $// In loadMyProjects and renderPublicProjects
-${p.file_path ? `
-  <a href="${window.location.origin}${p.file_path.startsWith('/') ? '' : '/'}${p.file_path}" 
-     target="_blank"
-     class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-medium">
-    <i class="fas fa-download"></i>
-    Download PDF
-  </a>
-` : ''}
+            ${p.file_path ? `
+              <a href="${window.location.origin}${p.file_path}" 
+                 target="_blank" 
+                 class="mt-3 inline-block text-blue-600 hover:underline">
+                📄 Download PDF
+              </a>
+            ` : ''}
           </div>
         `).join('');
       } else {
@@ -251,28 +249,8 @@ function renderPublicProjects(projects) {
       ${p.file_path ? `
         <a href="${window.location.origin}${p.file_path}" 
            target="_blank"
-           class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300">
+           class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-medium">
           <i class="fas fa-download"></i>
-          Download PDF
-        </a>
-      ` : ''}
-    </div>
-  `).join('');
-}
-
-function renderPublicProjects(projects) {
-  const container = document.getElementById('publicProjectsList');
-  if (!container) return;
-
-  container.innerHTML = projects.map(p => `
-    <div class="bg-white p-6 rounded-3xl shadow">
-      <h3 class="font-semibold">${p.title}</h3>
-      <p class="text-sm text-gray-600">By: ${p.student_name}</p>
-      
-      ${p.file_path ? `
-        <a href="${window.location.origin}${p.file_path}" 
-           target="_blank"
-           class="mt-4 inline-block text-blue-600 hover:underline">
           Download PDF
         </a>
       ` : ''}
