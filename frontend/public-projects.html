@@ -3,15 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Public Projects</title>
+  <title>Public Projects - ProjectRepo</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>tailwind.config = { content: ["./**/*.{html,js}"] };</script>
 </head>
-<body class="bg-gray-50">
+<body class="bg-zinc-950 text-zinc-200">
   <div class="max-w-7xl mx-auto px-6 py-12">
-    <h1 class="text-4xl font-bold mb-8">Approved Academic Projects</h1>
+    <div class="flex justify-between items-center mb-10">
+      <h1 class="text-4xl font-bold">Approved Academic Projects</h1>
+      
+      <input type="text" id="searchInput" 
+             placeholder="Search by title or student name..." 
+             class="w-96 px-5 py-3 bg-zinc-900 border border-zinc-700 rounded-2xl focus:outline-none focus:border-blue-500">
+    </div>
+
     <div id="publicProjectsList" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
   </div>
+
   <script src="js/utils.js"></script>
   <script src="js/projects.js"></script>
 </body>

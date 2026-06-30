@@ -214,3 +214,69 @@ async function updateProjectStatus(projectId, status) {
 
 // Debug: Check your role
 console.log("Current User:", getUser());
+
+let allPublicProjects = [];
+
+async function loadPublicProjects() {
+  try {
+    const data = await fetch(`${API_BASE}/projects/public`)
+      .then(res => res.json());
+    
+    allPublicProjects = data || [];
+    renderPublicProjects(allPublicProjects);
+  } catch (err) {
+    console.error(err);
+    document.getElementById('publicProjectsList').innerHTML = 
+      '<p class="text-red-500 col-span-full text-center py-12">Failed to load projects</p>';
+  }
+}
+
+function renderPublicProjects(projects) {
+  const container = document.getElementById('publicProjectsList');
+  if (!container) return;
+
+  if (projects.length === 0) {
+    container.innerHTML = `<p class="text-zinc-400 col-span-full text-center py-12">No approved projects found.</p>`;
+    return;
+  }
+
+  container.innerHTML = projects.map(p => `
+    <div class="bg-zinc-900 rounded-3xl p-6 border border-zinc-800 hover:border-zinc-700 transition">
+      <h3 class="font-semibold text-lg mb-2">${p.title}</h3>
+      <p class="text-sm text-zinc-400 mb-3">By: ${p.student_name}</p>
+      <p class="text-zinc-500 text-sm line-clamp-3 mb-6">${p.description || 'No description provided.'}</p>
+      
+      ${p.file_path ? `
+        <a href="${window.location.origin}${p.file_path}" 
+           target="_blank"
+           class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300">
+          <i class="fas fa-download"></i>
+          Download PDF
+        </a>
+      ` : ''}
+    </div>
+  `).join('');
+}
+
+// Search functionality
+document.getElementById('searchInput')?.addEventListener('input', (e) => {
+  const query = e.target.value.toLowerCase().trim();
+  
+  if (!query) {
+    renderPublicProjects(allPublicProjects);
+    return;
+  }
+
+  const filtered = allPublicProjects.filter(p => 
+    p.title.toLowerCase().includes(query) ||
+    (p.description && p.description.toLowerCase().includes(query)) ||
+    (p.student_name && p.student_name.toLowerCase().includes(query))
+  );
+
+  renderPublicProjects(filtered);
+});
+
+// Auto load
+if (document.getElementById('publicProjectsList')) {
+  loadPublicProjects();
+}

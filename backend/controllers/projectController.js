@@ -123,3 +123,20 @@ exports.getLecturers = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+exports.getPublicProjects = async (req, res) => {
+  try {
+    const result = await db.query(
+      `SELECT p.id, p.title, p.description, p.file_path, 
+              u.name as student_name 
+       FROM projects p 
+       JOIN users u ON p.student_id = u.id 
+       WHERE p.status = 'approved' 
+       ORDER BY p.created_at DESC`
+    );
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
