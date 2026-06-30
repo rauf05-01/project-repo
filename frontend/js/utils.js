@@ -1,4 +1,3 @@
-// Dynamic API Base
 const API_BASE = (window.location.hostname === 'localhost' || 
                   window.location.hostname === '127.0.0.1') 
                  ? 'http://localhost:5000/api' 
@@ -11,10 +10,6 @@ function getToken() {
 function getUser() {
   const userStr = localStorage.getItem('user');
   return userStr ? JSON.parse(userStr) : null;
-}
-
-function isLoggedIn() {
-  return !!getToken();
 }
 
 async function apiRequest(endpoint, options = {}) {
@@ -35,7 +30,6 @@ async function apiRequest(endpoint, options = {}) {
       window.location.href = 'login.html';
       return null;
     }
-    
     return await res.json();
   } catch (err) {
     console.error('API Error:', err);
