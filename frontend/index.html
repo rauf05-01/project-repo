@@ -21,7 +21,7 @@
 
   <!-- Navbar -->
   <nav class="bg-black border-b border-zinc-800 sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-6 py-6 flex justify-between items-center">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
       <div class="flex items-center gap-3">
         <div class="w-9 h-9 bg-white text-black rounded-2xl flex items-center justify-center font-bold text-2xl">P</div>
         <h1 class="text-3xl font-bold tracking-tight text-white">ProjectRepo</h1>
@@ -29,7 +29,8 @@
       
       <div class="flex items-center gap-10 text-zinc-400">
         <a href="#features" class="hover:text-white transition">Features</a>
-        <a href="public-projects.html" class="hover:text-white transition">Browse Projects</a>
+        <a href="public-projects.html" class="hover:text-white transition">Discover Projects</a>
+        <a href="#stats" class="hover:text-white transition">Statistics</a>
         <a href="login.html" class="hover:text-white transition">Login</a>
         <a href="register.html" 
            class="bg-white text-black px-6 py-3 rounded-2xl font-semibold hover:bg-zinc-200 transition">
@@ -40,23 +41,25 @@
   </nav>
 
   <!-- Hero -->
-  <section class="bg-gradient-to-br from-zinc-900 to-black py-32">
+  <section class="bg-gradient-to-br from-zinc-900 to-black py-32 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-6 text-center">
       <h1 class="text-7xl font-bold tracking-tighter mb-6 text-white">
-        The Modern Platform<br>for Academic Projects
+        The Modern Repository<br>for Academic Excellence
       </h1>
       <p class="text-2xl text-zinc-400 max-w-2xl mx-auto mb-12">
-        Streamline submission, review, and discovery of academic work in one powerful platform.
+        A powerful platform for students to submit projects, lecturers to review them, 
+        and researchers to discover groundbreaking academic work.
       </p>
       
       <div class="flex justify-center gap-6">
         <a href="register.html" 
-           class="bg-white text-black px-10 py-5 rounded-3xl font-semibold text-xl hover:bg-zinc-200 transition">
-          Create Free Account
+           class="bg-white text-black px-10 py-5 rounded-3xl font-semibold text-xl hover:bg-zinc-200 transition flex items-center gap-2">
+          <i class="fas fa-rocket"></i>
+          Start Your Journey
         </a>
-        <a href="login.html" 
+        <a href="public-projects.html" 
            class="border border-zinc-700 text-white px-10 py-5 rounded-3xl font-semibold text-xl hover:bg-zinc-900 transition">
-          Sign In
+          Explore Projects
         </a>
       </div>
     </div>
@@ -66,35 +69,63 @@
   <section id="features" class="py-24 bg-zinc-900">
     <div class="max-w-7xl mx-auto px-6">
       <div class="text-center mb-16">
-        <h2 class="text-5xl font-bold text-white">Built for Academic Excellence</h2>
+        <h2 class="text-5xl font-bold text-white">Everything You Need in One Place</h2>
       </div>
 
       <div class="grid md:grid-cols-3 gap-10">
-        <div class="p-10 bg-zinc-800 rounded-3xl border border-zinc-700">
-          <i class="fas fa-upload text-blue-400 text-5xl mb-6"></i>
-          <h3 class="text-2xl font-semibold mb-4 text-white">Simple Submission</h3>
-          <p class="text-zinc-400">Upload your project, select your supervisor, and track progress in real time.</p>
+        <div class="p-10 bg-zinc-800 rounded-3xl border border-zinc-700 group">
+          <div class="text-blue-400 text-5xl mb-6">
+            <i class="fas fa-upload"></i>
+          </div>
+          <h3 class="text-2xl font-semibold mb-4 text-white">Seamless Submission</h3>
+          <p class="text-zinc-400">Upload PDF projects, assign to lecturers, and track every stage of the review process.</p>
         </div>
 
-        <div class="p-10 bg-zinc-800 rounded-3xl border border-zinc-700">
-          <i class="fas fa-user-graduate text-emerald-400 text-5xl mb-6"></i>
-          <h3 class="text-2xl font-semibold mb-4 text-white">Efficient Review</h3>
-          <p class="text-zinc-400">Lecturers can review, comment, and approve projects with a streamlined workflow.</p>
+        <div class="p-10 bg-zinc-800 rounded-3xl border border-zinc-700 group">
+          <div class="text-emerald-400 text-5xl mb-6">
+            <i class="fas fa-user-graduate"></i>
+          </div>
+          <h3 class="text-2xl font-semibold mb-4 text-white">Intelligent Review System</h3>
+          <p class="text-zinc-400">Lecturers can review, add detailed comments, and approve or reject submissions efficiently.</p>
         </div>
 
-        <div class="p-10 bg-zinc-800 rounded-3xl border border-zinc-700">
-          <i class="fas fa-globe text-purple-400 text-5xl mb-6"></i>
-          <h3 class="text-2xl font-semibold mb-4 text-white">Knowledge Sharing</h3>
-          <p class="text-zinc-400">Public archive of approved projects for students and researchers worldwide.</p>
+        <div class="p-10 bg-zinc-800 rounded-3xl border border-zinc-700 group">
+          <div class="text-purple-400 text-5xl mb-6">
+            <i class="fas fa-globe"></i>
+          </div>
+          <h3 class="text-2xl font-semibold mb-4 text-white">Public Knowledge Hub</h3>
+          <p class="text-zinc-400">Browse thousands of approved academic projects from students across institutions.</p>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Stats -->
+  <section id="stats" class="py-20 bg-black border-t border-zinc-800">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-8 text-center">
+      <div>
+        <div class="text-5xl font-bold text-white mb-2">1,248</div>
+        <div class="text-zinc-400">Projects Submitted</div>
+      </div>
+      <div>
+        <div class="text-5xl font-bold text-white mb-2">87</div>
+        <div class="text-zinc-400">Active Lecturers</div>
+      </div>
+      <div>
+        <div class="text-5xl font-bold text-white mb-2">12</div>
+        <div class="text-zinc-400">Institutions</div>
+      </div>
+      <div>
+        <div class="text-5xl font-bold text-white mb-2">98%</div>
+        <div class="text-zinc-400">Approval Rate</div>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA -->
-  <section class="bg-black py-20 border-t border-zinc-800">
+  <section class="bg-gradient-to-r from-blue-600 to-indigo-600 py-20 text-white">
     <div class="max-w-4xl mx-auto text-center px-6">
-      <h2 class="text-5xl font-bold mb-6 text-white">Ready to elevate your academic journey?</h2>
+      <h2 class="text-5xl font-bold mb-6">Ready to transform your academic journey?</h2>
       <a href="register.html" 
          class="inline-block bg-white text-black px-12 py-6 rounded-3xl text-2xl font-semibold hover:bg-zinc-200 transition">
         Join ProjectRepo Today
