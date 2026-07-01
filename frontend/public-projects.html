@@ -5,19 +5,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Public Projects - ProjectRepo</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>tailwind.config = { content: ["./**/*.{html,js}"] };</script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script>
+    tailwind.config = { content: ["./**/*.{html,js}"] };
+  </script>
 </head>
-<body class="bg-zinc-950 text-zinc-200">
+<body class="bg-gray-50">
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow border-b">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <i class="fas fa-book text-3xl text-blue-600"></i>
+        <h1 class="text-2xl font-bold text-gray-900">ProjectRepo</h1>
+      </div>
+      <div class="flex items-center gap-8">
+        <a href="index.html" class="hover:text-gray-900 transition">Home</a>
+        <a href="login.html" class="hover:text-gray-900 transition">Login</a>
+        <a href="register.html" class="bg-blue-600 text-white px-6 py-3 rounded-2xl font-medium hover:bg-blue-700 transition">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
   <div class="max-w-7xl mx-auto px-6 py-12">
-    <div class="flex justify-between items-center mb-10">
-      <h1 class="text-4xl font-bold">Approved Academic Projects</h1>
+    <div class="flex flex-col md:flex-row justify-between items-center mb-10">
+      <div>
+        <h1 class="text-4xl font-bold text-gray-900">Approved Academic Projects</h1>
+        <p class="text-gray-600 mt-2">Discover research and projects from students across the university</p>
+      </div>
       
-      <input type="text" id="searchInput" 
-             placeholder="Search by title or student name..." 
-             class="w-96 px-5 py-3 bg-zinc-900 border border-zinc-700 rounded-2xl focus:outline-none focus:border-blue-500">
+      <div class="mt-6 md:mt-0 w-full md:w-96">
+        <div class="relative">
+          <i class="fas fa-search absolute left-4 top-4 text-gray-400"></i>
+          <input type="text" id="searchInput" 
+                 placeholder="Search by title, description or student..." 
+                 class="w-full pl-11 pr-5 py-4 bg-white border border-gray-200 rounded-3xl focus:outline-none focus:border-blue-500 text-gray-900">
+        </div>
+      </div>
     </div>
 
-    <div id="publicProjectsList" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    <div id="publicProjectsList" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
   </div>
 
   <script src="js/utils.js"></script>
