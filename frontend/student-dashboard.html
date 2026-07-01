@@ -3,21 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Student Dashboard</title>
+  <title>Student Dashboard - ProjectRepo</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>tailwind.config = { content: ["./**/*.{html,js}"] };</script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script>
+    tailwind.config = { content: ["./**/*.{html,js}"] };
+  </script>
 </head>
 <body class="bg-gray-50">
-  <nav class="bg-white shadow p-4">
-    <div class="max-w-7xl mx-auto flex justify-between items-center">
-      <h1 class="text-2xl font-bold">Student Dashboard</h1>
-      <button onclick="logout()" class="text-red-600 hover:underline">Logout</button>
+  <!-- Navbar -->
+  <nav class="bg-white shadow border-b">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <div class="text-3xl">📘</div>
+        <h1 class="text-2xl font-bold text-gray-900">ProjectRepo</h1>
+      </div>
+      <div class="flex items-center gap-8">
+        <span class="text-gray-600 font-medium">Student</span>
+        <button onclick="logout()" class="flex items-center gap-2 text-red-600 hover:text-red-700 transition">
+          <i class="fas fa-sign-out-alt"></i>
+          Logout
+        </button>
+      </div>
     </div>
   </nav>
 
-  <div class="max-w-7xl mx-auto px-6 py-8">
+  <div class="max-w-7xl mx-auto px-6 py-10">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <!-- Upload Form -->
+      <!-- Upload -->
       <div class="lg:col-span-2 bg-white p-8 rounded-3xl shadow">
         <h2 class="text-2xl font-semibold mb-6">Upload New Project</h2>
         <form id="uploadForm">
@@ -29,8 +42,8 @@
             <option value="">Loading lecturers...</option>
           </select>
 
-          <input type="file" id="projectFile" accept="application/pdf" class="mb-6">
-          <button type="submit" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-medium">Upload & Assign</button>
+          <input type="file" id="projectFile" accept="application/pdf" class="mb-6 block w-full">
+          <button type="submit" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-medium">Upload Project</button>
         </form>
       </div>
 
