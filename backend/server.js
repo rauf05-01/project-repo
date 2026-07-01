@@ -12,17 +12,19 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Serve Frontend
-app.use(express.static(path.join(__dirname, '../frontend')));
+// Static files
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/admin', adminRoutes);
 
-// Catch-all route for frontend (SPA-like)
+// Serve Frontend
+app.use(express.static(path.join(__dirname, '../frontend')));
+
+// Catch-all for frontend pages (AFTER static files)
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/index.html'));
 });
@@ -30,5 +32,4 @@ app.get('*', (req, res) => {
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`Frontend served at http://localhost:${PORT}`);
 });
